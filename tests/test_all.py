@@ -1,13 +1,13 @@
-# test_iajuridique.py
-import pytestimport pytest
+import pytest
 from unittest.mock import patch
-from ia_jurisite import IAJuridiqueWeb  # adapte si ton fichier a un autre nom
+from ia_jurisite import IAJuridiqueWeb  # Modifie si le nom de ton fichier est différent
 
-@patch('ia_jurisite.search')  # Patch là où `search` est importé dans ton code
+# Test de la méthode recherche_google avec de vrais liens simulés
+@patch('ia_jurisite.search')  # Patch la fonction là où elle est importée dans ton code
 def test_recherche_google(mock_search):
     ia_juridique = IAJuridiqueWeb()
 
-    # URLs réalistes de vrais sites juridiques
+    # Simuler les résultats de recherche pour chaque domaine
     mock_search.side_effect = [
         [  # Résultats pour legifrance
             "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000571356/",
@@ -21,7 +21,7 @@ def test_recherche_google(mock_search):
         ]
     ]
 
-    mot_cle = "saisie immobilière"
+    mot_cle = "saisie "
     resultats = ia_juridique.recherche_google(mot_cle)
 
     assert len(resultats) == 4
@@ -32,6 +32,7 @@ def test_recherche_google(mock_search):
         assert url.startswith("🔍 http")
 
 
+# Test de la méthode generer_reponse avec des résultats simulés
 @patch('ia_jurisite.search')
 def test_generer_reponse(mock_search):
     ia_juridique = IAJuridiqueWeb()
@@ -49,10 +50,13 @@ def test_generer_reponse(mock_search):
     assert "https://www.service-public.fr" in reponse
 
 
+# Test pour vérifier le comportement sans résultats
 @patch('ia_jurisite.search')
 def test_aucun_resultat(mock_search):
     ia_juridique = IAJuridiqueWeb()
-    mock_search.side_effect = [[], [], []]  # Aucun résultat pour tous les sites
+    
+    # Simuler aucun résultat pour tous les sites
+    mock_search.side_effect = [[], [], []]
 
     reponse = ia_juridique.generer_reponse("terme inexistant improbable")
 
