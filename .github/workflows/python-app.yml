@@ -5,10 +5,15 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      -"main"
+      - "dev"
+      - "feature/ia-integration" 
   pull_request:
-    branches: [ "main" ]
-
+    branches:
+      -"main"
+      - "dev"
+      - "feature/ia-integration" 
 permissions:
   contents: read
 
