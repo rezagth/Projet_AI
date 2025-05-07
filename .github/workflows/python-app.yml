@@ -6,12 +6,10 @@ name: Python application
 on:
   push:
     branches: 
-      -"main"
       - "dev"
       - "feature/ia-integration" 
   pull_request:
     branches:
-      -"main"
       - "dev"
       - "feature/ia-integration" 
 permissions:
