@@ -1,25 +1,3 @@
-Skip to content
-Navigation Menu
-rezagth
-Projet_AI
-
-Type / to search
-Code
-Issues
-Pull requests
-2
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-Build EXE on Merge to Main
-Update build-exe.yml #2
-Jobs
-Run details
-Workflow file for this run
-.github/workflows/build-exe.yml at f8e9d05
 name: Build EXE on Merge to Main
 
 on:
@@ -45,12 +23,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
+
       - name: Build executable with PyInstaller
         run: |
-          pyinstaller --onefile interactif_ia_juridique.py --name ia-jurisite
+          pyinstaller --onefile interactif_ia_juridique.py --name assistant_ia_juridique
+
       - name: Upload the .exe as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ia-jurisite-exe
-          path: dist/ia-jurisite.exe
-Update build-exe.yml · rezagth/Projet_AI@f8e9d05
+          name: assistant_ia_juridique
+          path: dist/assistant_ia_juridique.exe
