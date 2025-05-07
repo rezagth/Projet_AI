@@ -1,14 +1,34 @@
-name: Build EXE on PR Merge to Main
+Skip to content
+Navigation Menu
+rezagth
+Projet_AI
+
+Type / to search
+Code
+Issues
+Pull requests
+2
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Build EXE on Merge to Main
+Update build-exe.yml #2
+Jobs
+Run details
+Workflow file for this run
+.github/workflows/build-exe.yml at f8e9d05
+name: Build EXE on Merge to Main
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - main
 
 jobs:
   build-exe:
-    if: github.event.pull_request.merged == true
     runs-on: windows-latest
 
     steps:
@@ -25,18 +45,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
-
-      - name: Clean previous builds
-        run: |
-          Remove-Item -Recurse -Force build, dist
-          Remove-Item -Force assistant_ia_juridique.spec
-
       - name: Build executable with PyInstaller
         run: |
-          pyinstaller --onefile interactif_ia_juridique.py --name assistant_ia_juridique --distpath dist --workpath build --specpath . --clean
-
+          pyinstaller --onefile interactif_ia_juridique.py --name ia-jurisite
       - name: Upload the .exe as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: assistant_ia_juridique
-          path: dist/assistant_ia_juridique.exe
+          name: ia-jurisite-exe
+          path: dist/ia-jurisite.exe
+Update build-exe.yml · rezagth/Projet_AI@f8e9d05
