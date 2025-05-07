@@ -1,4 +1,3 @@
-# .github/workflows/build-exe.yml
 name: Build EXE on Merge to Main
 
 on:
@@ -27,10 +26,10 @@ jobs:
 
       - name: Build executable with PyInstaller
         run: |
-          pyinstaller --onefile main.py  # <== mets ici ton script principal
+          pyinstaller --onefile interactif-ia-juridique.py --name ia-jurisite
 
       - name: Upload the .exe as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ia-juridique-exe
-          path: dist/*.exe
+          name: ia-jurisite-exe
+          path: dist/ia-jurisite.exe
