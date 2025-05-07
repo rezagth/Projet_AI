@@ -19,7 +19,7 @@ L’interface permet de :
 - Entrer un ou plusieurs mots-clés
 - Lancer la recherche web
 - Visualiser les URLs trouvées dans la fenêtre
-- Exporter les résultats au format **CSV**
+
 
 ---
 
@@ -29,7 +29,7 @@ L’interface permet de :
 - Saisie de mots-clés personnalisés
 - Scraping des pages via les moteurs de recherche
 - Affichage en temps réel des résultats
-- Export des URLs en CSV
+
 
 ---
 
@@ -37,7 +37,4 @@ L’interface permet de :
 
 ### 1. Cloner le dépôt
 ```bash
-git clone https://github.com/ton-utilisateur/scrapper-ia-gui.git
-cd scrapper-ia-gui
-
- 
+git clone https://github.com/rezagth/Projet_AI
