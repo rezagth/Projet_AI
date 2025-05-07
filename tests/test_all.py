@@ -1,7 +1,7 @@
 # test_iajuridique.py
 import pytest
 from unittest.mock import patch
-from iajuridique import IAJuridiqueWeb
+from ia_jurisite import IAJuridiqueWeb
 
 # Test de la méthode recherche_google
 @patch('googlesearch.search')  # On simule l'appel à search
