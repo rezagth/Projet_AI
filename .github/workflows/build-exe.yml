@@ -1,12 +1,14 @@
-name: Build EXE on Merge to Main
+name: Build EXE on PR Merge to Main
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - main
 
 jobs:
   build-exe:
+    if: github.event.pull_request.merged == true
     runs-on: windows-latest
 
     steps:
@@ -24,12 +26,17 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
+      - name: Clean previous builds
+        run: |
+          Remove-Item -Recurse -Force build, dist
+          Remove-Item -Force assistant_ia_juridique.spec
+
       - name: Build executable with PyInstaller
         run: |
-          pyinstaller --onefile interactif-ia-juridique.py --name ia-jurisite
+          pyinstaller --onefile interactif_ia_juridique.py --name assistant_ia_juridique --distpath dist --workpath build --specpath . --clean
 
       - name: Upload the .exe as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ia-jurisite-exe
-          path: dist/ia-jurisite.exe
+          name: assistant_ia_juridique
+          path: dist/assistant_ia_juridique.exe
