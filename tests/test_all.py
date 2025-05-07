@@ -13,7 +13,8 @@ URLS_COMMISSAIRE_JUSTICE = [
 URLS_SERVICE_PUBLIC = [
     "https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228"
 ]
-MESSAGE_AUCUN_RESULTAT = "Aucun résultat trouvé"
+# Mise à jour pour résoudre l'erreur
+MESSAGE_AUCUN_RESULTAT = "Aucun lien pertinent trouvé"
 
 # Fonction utilitaire pour créer une instance de IAJuridiqueWeb
 def creer_instance_ia():
