@@ -1,55 +1,59 @@
 # test_iajuridique.py
-import pytest
+import pytestimport pytest
 from unittest.mock import patch
-from ia_jurisite import IAJuridiqueWeb
+from ia_jurisite import IAJuridiqueWeb  # adapte si ton fichier a un autre nom
 
-# Test de la méthode recherche_google
-@patch('googlesearch.search')  # On simule l'appel à search
+@patch('ia_jurisite.search')  # Patch là où `search` est importé dans ton code
 def test_recherche_google(mock_search):
-    # Créer une instance de la classe
     ia_juridique = IAJuridiqueWeb()
 
-    # Simuler des résultats pour chaque site
-    mock_search.return_value = [
-        "https://www.legifrance.gouv.fr/decision1",
-        "https://www.legifrance.gouv.fr/decision2",
-        "https://www.service-public.fr/information"
+    # URLs réalistes de vrais sites juridiques
+    mock_search.side_effect = [
+        [  # Résultats pour legifrance
+            "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000571356/",
+            "https://www.legifrance.gouv.fr/codes/id/LEGITEXT000006070719/"
+        ],
+        [  # Résultats pour commissaire-justice.fr
+            "https://www.commissaire-justice.fr/actualites/fiche/nomination-nouveaux-commissaires"
+        ],
+        [  # Résultats pour service-public.fr
+            "https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228"
+        ]
     ]
 
-    # Tester la méthode recherche_google
-    resultats = ia_juridique.recherche_google("liquidation judiciaire")
+    mot_cle = "saisie immobilière"
+    resultats = ia_juridique.recherche_google(mot_cle)
 
-    # Vérifier les résultats obtenus
-    assert len(resultats) == 3
-    assert "🔍 https://www.legifrance.gouv.fr/decision1" in resultats
-    assert "🔍 https://www.service-public.fr/information" in resultats
-    assert "🔍 https://www.legifrance.gouv.fr/decision2" in resultats
+    assert len(resultats) == 4
+    assert any("legifrance.gouv.fr" in url for url in resultats)
+    assert any("commissaire-justice.fr" in url for url in resultats)
+    assert any("service-public.fr" in url for url in resultats)
+    for url in resultats:
+        assert url.startswith("🔍 http")
 
 
-# Test de la méthode generer_reponse
-@patch('googlesearch.search')  # On simule l'appel à search
+@patch('ia_jurisite.search')
 def test_generer_reponse(mock_search):
-    # Créer une instance de la classe
     ia_juridique = IAJuridiqueWeb()
 
-    # Simuler des résultats pour chaque site
-    mock_search.return_value = [
-        "https://www.legifrance.gouv.fr/decision1",
-        "https://www.legifrance.gouv.fr/decision2",
-        "https://www.service-public.fr/information"
+    mock_search.side_effect = [
+        ["https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000571356/"],
+        ["https://www.commissaire-justice.fr/actualites/fiche/nomination-nouveaux-commissaires"],
+        ["https://www.service-public.fr/professionnels-entreprises/vosdroits/F31228"]
     ]
 
-    # Tester la méthode generer_reponse
-    reponse = ia_juridique.generer_reponse("liquidation judiciaire")
+    reponse = ia_juridique.generer_reponse("vente aux enchères")
 
-    # Vérifier que la réponse contient les bons résultats
-    assert "🔍 https://www.legifrance.gouv.fr/decision1" in reponse
-    assert "🔍 https://www.service-public.fr/information" in reponse
-    assert "🔍 https://www.legifrance.gouv.fr/decision2" in reponse
+    assert "https://www.legifrance.gouv.fr" in reponse
+    assert "https://www.commissaire-justice.fr" in reponse
+    assert "https://www.service-public.fr" in reponse
 
-    # Tester un cas avec aucun résultat
-    mock_search.return_value = []
-    reponse_vide = ia_juridique.generer_reponse("mot clé inexistant")
 
-    # Vérifier que le message "Aucun résultat trouvé" est dans la réponse
-    assert "Aucun résultat trouvé" in reponse_vide
+@patch('ia_jurisite.search')
+def test_aucun_resultat(mock_search):
+    ia_juridique = IAJuridiqueWeb()
+    mock_search.side_effect = [[], [], []]  # Aucun résultat pour tous les sites
+
+    reponse = ia_juridique.generer_reponse("terme inexistant improbable")
+
+    assert "Aucun résultat trouvé" in reponse
