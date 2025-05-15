@@ -26,7 +26,7 @@ jobs:
 
       - name: Build executable with PyInstaller
         run: |
-          pyinstaller --onefile interactif-ia-juridique.py --name ia-jurisite
+          pyinstaller --onefile --noconsole --name assistant_juridique interactif_ia_juridique.py
 
       - name: Upload the .exe as artifact
         uses: actions/upload-artifact@v4
