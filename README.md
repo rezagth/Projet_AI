@@ -31,7 +31,8 @@ L’interface permet de :
 - Affichage en temps réel des résultats
 
 ---
-📝 À faire (Roadmap)
+
+## 📝 À faire (Roadmap)
 
 - 📂 Export des résultats : Permettre l’enregistrement des URLs dans un fichier (.csv ou .txt)
 
@@ -41,7 +42,7 @@ L’interface permet de :
 
 - 🧩 Interface améliorée : Ajouter des filtres (type de contenu, date, etc.) et une meilleure ergonomie
 
-🧪 Tests unitaires : Ajouter des tests pour garantir la stabilité de l’application
+- 🧪 Tests unitaires : Ajouter des tests pour garantir la stabilité de l’application
 ---
 
 ## 🚀 Installation
