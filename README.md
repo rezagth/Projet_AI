@@ -29,9 +29,19 @@ L’interface permet de :
 - Saisie de mots-clés personnalisés
 - Scraping des pages via les moteurs de recherche
 - Affichage en temps réel des résultats
-- test workflow
 
+---
+📝 À faire (Roadmap)
 
+- 📂 Export des résultats : Permettre l’enregistrement des URLs dans un fichier (.csv ou .txt)
+
+- 🧠 Analyse de contenu : Ajouter une fonctionnalité d’analyse sémantique pour extraire les informations clés des pages
+
+- 🛡️ Gestion des erreurs : Améliorer la robustesse face aux CAPTCHAs et aux erreurs réseau
+
+- 🧩 Interface améliorée : Ajouter des filtres (type de contenu, date, etc.) et une meilleure ergonomie
+
+🧪 Tests unitaires : Ajouter des tests pour garantir la stabilité de l’application
 ---
 
 ## 🚀 Installation
