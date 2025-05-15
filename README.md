@@ -29,7 +29,7 @@ L’interface permet de :
 - Saisie de mots-clés personnalisés
 - Scraping des pages via les moteurs de recherche
 - Affichage en temps réel des résultats
-
+-
 
 ---
 
